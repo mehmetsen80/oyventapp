@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Oyvent</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="register">Register</string>
+    <string name="logo">Logo</string>
+    <string name="login">Login</string>
+    <string name="email_or_username">Email or Username</string>
+    <string name="email">Email</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="fullname">Full Name</string> 
+    <string name="empty"></string>
+    <string name="send">Send</string>
+	<string name="delete">Delete</string>
+	<string name="post">Post</string>
+	<string name="share">Share</string>	
+	<string name="action_logout">Logout</string>
+    <string name="desc_list_item_icon">Item Icon</string>  
+    <string name="GPSAlertDialogTitle">GPS Setttings</string>
+    <string name="GPSAlertDialogMessage">GPS is not enabled. Do you want to go to settings menu?</string>
+    <string name="cancel">Cancel</string>
+    <string name="add_image">Add Image</string>	
+    <string name="no_network_connection_toast">No network connection found</string>
+    <string name="clear_cache_menu">Clear Caches</string>
+    <string name="clear_cache_complete_toast">Caches have been cleared</string>
+    <string name="imageview_description">Image Thumbnail</string>
+    <string name="feed_thumb_image">Feed Thumb Image</string>
+    <string name="feed_deleted">Feed deleted successfully!</string>
+    <string name="feed_added">Photo added successfully!</string>
+    <string name="title_fullscreen_image">Content</string>
+    
+    <string-array name="nav_drawer_items">
+        <item >Home</item>
+        <item >Events</item>
+        <!-- <item >My Photos</item> -->       
+        <item >Settings</item>
+    </string-array>
+    
+     <!-- Nav Drawer List Item Icons -->
+    <!-- Keep them in order as the titles are in -->
+    <array name="nav_drawer_icons">
+        <item>@drawable/ic_home</item>
+        <item>@drawable/ic_people</item>
+        <item>@drawable/ic_photos</item>
+        <!-- <item>@drawable/ic_communities</item> -->
+        <!-- <item>@drawable/ic_pages</item> -->
+        <item>@drawable/ic_whats_hot</item>
+    </array>
+    
+    
+
+</resources>
