@@ -1,8 +1,11 @@
-package com.oy.vent;
+package com.oy.vent.util;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
+
+import com.oy.vent.R;
+import com.oy.vent.R.string;
 
 import android.app.AlertDialog;
 import android.app.Service;

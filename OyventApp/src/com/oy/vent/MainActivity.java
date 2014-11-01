@@ -7,6 +7,7 @@ import com.oy.vent.fragment.ImageGridFragment;
 import com.oy.vent.model.UserInfo;
 import com.oy.vent.slidingmenu.adapter.NavDrawerListAdapter;
 import com.oy.vent.slidingmenu.model.NavDrawerItem;
+import com.oy.vent.util.GPSTracker;
 
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
