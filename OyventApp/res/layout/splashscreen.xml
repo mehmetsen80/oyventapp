@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   android:background="@layout/bg_repeat"
+    android:orientation="vertical" >
+    
+     <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"   
+        android:background="@layout/bg_repeat" > 
+    
+        <!--  Header  Starts-->
+        <LinearLayout
+            android:id="@+id/header"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="300dip"            
+            android:gravity="center_vertical"
+            android:paddingBottom="10dip"
+            android:paddingTop="20dip" >
+                <!-- LogoStart-->               
+                <ImageView android:id="@+id/logo"
+                	android:layout_width="fill_parent"
+                	android:layout_height="wrap_content"
+                	android:contentDescription="@string/logo"
+                	android:layout_marginTop="20dip"
+                	android:layout_marginBottom="20dip"
+                	android:text="@string/motto"
+                	android:gravity="center"
+                	android:textSize="22sp"
+                	android:textColor="#ffffff" 
+                	android:src="@drawable/logo"
+                	android:padding="10dp"
+                	/>                
+                <!-- Logo Ends -->
+        </LinearLayout>  
+        
+        
+        <!-- Footer Start -->
+        <LinearLayout android:id="@+id/footer"
+            	android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="60dip"
+                android:gravity="center_horizontal"         
+                android:layout_alignParentBottom="true">            
+            <!-- Motto -->
+          	<TextView android:id="@+id/motto"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:layout_marginBottom="10dip"
+                android:text="@string/motto"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:textColor="#ffffff"/>
+          	<!-- Motto --> 
+        </LinearLayout>
+        <!-- Footer Ends -->
+	</RelativeLayout>
+
+</LinearLayout>

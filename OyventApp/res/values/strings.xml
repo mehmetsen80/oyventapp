@@ -7,6 +7,7 @@
     <string name="register">Register</string>
     <string name="logo">Logo</string>
     <string name="login">Login</string>
+    <string name="login_now">Login Now</string>
     <string name="email_or_username">Email or Username</string>
     <string name="email">Email</string>
     <string name="username">Username</string>
@@ -31,6 +32,10 @@
     <string name="feed_deleted">Feed deleted successfully!</string>
     <string name="feed_added">Photo added successfully!</string>
     <string name="title_fullscreen_image">Content</string>
+    <string name="new_to_here_register">New to Oyvent? Register here</string>
+    <string name="browse_now">Browse Now</string>
+    <string name="motto">vote local event photos</string>
+    <string name="separator">|</string>
     
     <string-array name="nav_drawer_items">
         <item >Home</item>
