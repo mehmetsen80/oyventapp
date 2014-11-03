@@ -150,8 +150,10 @@ public class MainActivity extends FragmentActivity {
 		}
 		// Handle action bar actions click
 		switch (item.getItemId()) {
-		case R.id.action_logout:	        		
-    		setResult(5);//return to login screen
+		case R.id.action_logout:
+			removeUser();
+    		//setResult(5);//return to login screen
+    		goToLoginActivity();
     		finish();
 		case R.id.action_settings:
 			return true;
@@ -169,8 +171,8 @@ public class MainActivity extends FragmentActivity {
 	@Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {            
-        	setResult(6);
-        	finish();        	
+        	//setResult(6);        	
+        	finish();    	
         }
 		return false;
     }
@@ -187,10 +189,25 @@ public class MainActivity extends FragmentActivity {
 	    userInfo = getUserInfo();
 		if(userInfo == null)
 		{
-			setResult(5);
+			//setResult(5);
 			finish();
 		}
 	}
+	
+	//go to the Login Screen
+	protected void goToLoginActivity(){
+		Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+		//startActivityForResult(intent, REQUEST_CODE_LOGIN_CLASS);
+		startActivity(intent);
+		finish();
+	}
+	
+	//remove user info from hard disk
+  	protected void removeUser()
+  	{
+  		SharedPreferences sharedPref = getSharedPreferences(PREF_FILE_NAME, MODE_PRIVATE);
+  		sharedPref.edit().remove("userInfo").commit();
+  	}
 
 	//read user info from hard disk
 	private UserInfo getUserInfo()

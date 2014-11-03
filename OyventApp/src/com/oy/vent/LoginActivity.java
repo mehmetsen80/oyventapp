@@ -9,19 +9,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.google.gson.Gson;
-import com.oy.vent.helper.JSONParser;
 import com.oy.vent.model.UserInfo;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -30,14 +24,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class LoginActivity extends Activity{
+public class LoginActivity extends BaseActivity{
 
-	protected static final String PREF_FILE_NAME = "OYVENTDATA";//hard disk file name
-	protected static final int REQUEST_CODE_MAIN_CLASS = 111;//main activity
-	protected static final int REQUEST_CODE_LOGIN_CLASS = 222;//login activity
-	protected static final int REQUEST_CODE_REGISTER_CLASS = 333;	//register activity
-	protected final JSONParser jsonParser = new JSONParser();//Creating JSON Parser object
-	
 	private Button btnLogin = null;
 	private TextView txtRegister = null;
 	private TextView txtBrowseNow = null;
@@ -94,145 +82,8 @@ public class LoginActivity extends Activity{
         
         pDialog = new ProgressDialog(LoginActivity.this);        
 	}
-	
-	@Override
-    protected void onStart() {
-        super.onStart();        
-        handleAnonymousUser();//first we lookup the anonymous user        
-        UserInfo userInfo = getUserInfo();//if userInfo object exists on harddisk then skip to main Activity
-        if(userInfo != null && userInfo.email != "")
-             goToMainActivity();    
-    }
-	
-	@Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-        	handleAnonymousUser();
-        	setResult(6);
-        	finish();  	
-        }
-		return false;
-    }
-	
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if(requestCode == REQUEST_CODE_MAIN_CLASS || 
-				requestCode == REQUEST_CODE_LOGIN_CLASS ||
-				requestCode == REQUEST_CODE_REGISTER_CLASS){			
-			if(resultCode == 5)//if logged out
-			{				
-				removeUser();				
-				goToRegisterActivity();//and then go to login screen
-			}			
-			else if(resultCode == 6)//just exit the application
-			{
-				/*Toast toast = Toast.makeText(getApplicationContext(), "resultCode 6",  Toast.LENGTH_LONG);
-				toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
-				toast.show();*/
-				
-				handleAnonymousUser();
-				finish();
-				System.exit(0);
-			}else{
-				removeUser();
-				goToRegisterActivity();
-			}		
-		}
-	}
-	
-	//go to the Register Screen
-	protected void goToRegisterActivity(){
-		Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
-		startActivityForResult(intent, REQUEST_CODE_REGISTER_CLASS);
-	}
-	
-	//go to the home-all local feeds screen
-	protected void goToMainActivity() {
-		Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-		startActivityForResult(intent, REQUEST_CODE_MAIN_CLASS);		
-	}
-	
-	//save user info to hard disk
-  	protected void saveUserInfo(UserInfo usr)
-  	{
-  		SharedPreferences sharedPref =  getSharedPreferences( PREF_FILE_NAME, MODE_PRIVATE);
-  		SharedPreferences.Editor editor = sharedPref.edit();
-  		Gson gson = new Gson();
-  		String json = gson.toJson(usr);
-  		editor.putString("userInfo", json);
-  		editor.commit();
-  	}
-  	
-  	//read user info from hard disk
-  	protected UserInfo getUserInfo()
-  	{		
-  		SharedPreferences sharedPref = getSharedPreferences(PREF_FILE_NAME, MODE_PRIVATE);		
-  		Gson gson = new Gson();
-  		String json = sharedPref.getString("userInfo", "");
-  		UserInfo usr = gson.fromJson(json, UserInfo.class);		
-  		return usr;
-  	}
-  	
-  	//remove user info from hard disk
-  	protected void removeUser()
-  	{
-  		SharedPreferences sharedPref = getSharedPreferences(PREF_FILE_NAME, MODE_PRIVATE);
-  		sharedPref.edit().remove("userInfo").commit();
-  	}
-  	
-  	//handle the anonymous user
-  	protected void handleAnonymousUser(){ 
-  		//if userInfo object exists on harddisk then skip to main Activity
-          UserInfo userInfo = getUserInfo();
-          if(userInfo != null){        	
-          	if(userInfo.email.indexOf("anonymous@anonymous") > -1 && 
-          			userInfo.username.indexOf("anonymous") > -1 && 
-          			userInfo.password.indexOf("anonymous") > -1)
-          		removeUser();
-          }
-  	}
-	
-	/*
-	
-	@Override
-	protected void goToRegisterActivity(){
-		super.goToRegisterActivity();
-	}	
-	
-	
-	
-	
-	
-	@Override
-	protected void goToLoginActivity(){
-		super.goToLoginActivity();
-	}
-	
-	@Override
-	protected void goToMainActivity(){
-		super.goToMainActivity();
-	}
-	
-	@Override
-	protected void saveUserInfo(UserInfo usr){
-		super.saveUserInfo(usr);
-	}
-	
-	@Override
-	protected UserInfo getUserInfo(){
-		return super.getUserInfo();
-	}
-	
-	@Override
-	protected void removeUser(){
-		super.removeUser();
-	}
-	
-	@Override
-	protected void handleAnonymousUser(){
-		super.handleAnonymousUser();
-	}	*/
-	
+		
+		
 	//login json feed task
 	class LoginFeed extends AsyncTask<String, String, UserInfo> {		
 		
