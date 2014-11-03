@@ -245,7 +245,7 @@ public class ImageGridFragment extends Fragment implements AdapterView.OnItemCli
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
  	 
-    	final View v = inflater.inflate(R.layout.image_grid_fragment, container, false);
+    	final View v = inflater.inflate(R.layout.fragment_imagegrid, container, false);
     	
     	final ImageButton addfeed = (ImageButton)v.findViewById(R.id.add_feed);
 		addfeed.setClickable(true);		
@@ -746,26 +746,27 @@ public class ImageGridFragment extends Fragment implements AdapterView.OnItemCli
 			// dismiss the dialog after getting all albums
 			pDialog.dismiss();
 			// updating UI from Background Thread
-			getActivity().runOnUiThread(new Runnable() {
-				@Override
-				public void run() {
-					/**
-					 * Updating parsed JSON data into ListView
-					 * */									
+			if(getActivity() != null){
+				getActivity().runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						/**
+						 * Updating parsed JSON data into ListView
+						 * */									
 					
-					if(!dismiss)
-					{
-						customAdapter.notifyDataSetChanged();					
-						flag_loading = false;
-						currentPage++;
-					}
-					else
-					{
+						if(!dismiss)
+						{
+							customAdapter.notifyDataSetChanged();					
+							flag_loading = false;
+							currentPage++;
+						}
+						else
+						{
 						
+						}
 					}
-				}
-			});
-
+				});
+			}
 		}
 
 	}	

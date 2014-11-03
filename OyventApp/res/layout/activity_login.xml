@@ -19,8 +19,7 @@
             android:paddingBottom="10dip"
             android:paddingTop="20dip" >
 
-                <!-- Logo Start-->
-               
+                <!-- Logo Start-->               
                 <TextView android:id="@+id/motto"
                 	android:layout_width="fill_parent"
                 	android:layout_height="wrap_content"
@@ -38,19 +37,45 @@
         <!--  Header Ends -->
         <!-- Footer Start -->
         <LinearLayout android:id="@+id/footer"
-            	android:orientation="vertical"
+            	android:orientation="horizontal"
                 android:layout_width="fill_parent"
-                android:layout_height="80dip"                
+                android:layout_height="80dip"
+                android:gravity="center_horizontal"         
                 android:layout_alignParentBottom="true">
+            
+            <!-- Link to Registration Screen -->
+          <TextView android:id="@+id/registernow"
+                android:layout_width="100sp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dip"
+                android:layout_marginBottom="20dip"
+                android:text="@string/register_now"
+                android:gravity="left"
+                android:textSize="16sp"
+                android:textColor="#00507d"/>
+            
+            <!-- Separator -->
+          	<TextView android:id="@+id/separator"
+                android:layout_width="60sp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dip"
+                android:layout_marginBottom="20dip"
+                android:text="@string/separator"
+                android:gravity="center"               
+                android:textSize="18sp"
+                android:textColor="#00507d"/>
+          	<!-- Separator Ends -->
+          	
+            
             <!-- Browse Anonymously -->
           	<TextView android:id="@+id/browsenow"
-                android:layout_width="fill_parent"
+                android:layout_width="100sp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dip"
                 android:layout_marginBottom="20dip"
                 android:text="@string/browse_now"
-                android:gravity="center"
-                android:textSize="20sp"
+                android:gravity="right"
+                android:textSize="16sp"
                 android:textColor="#00507d"/>
           	<!-- End of Browse Anonymously -->
  
@@ -76,7 +101,7 @@
                 android:textSize="26sp"
                 android:layout_marginTop="5dip"
                 android:layout_marginBottom="7dip"
-                android:inputType="text"
+                android:inputType="textEmailAddress"
                 android:singleLine="true"/>
           <!--  Password Label -->
           <TextView android:layout_width="fill_parent"
@@ -100,16 +125,7 @@
                 android:layout_marginTop="8dip"
                 android:textSize="16sp"
                 android:text="@string/login_now"/>
-          <!-- Link to Registration Screen -->
-          <TextView android:id="@+id/link_to_register"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dip"
-                android:layout_marginBottom="40dip"
-                android:text="@string/new_to_here_register"
-                android:gravity="center"
-                android:textSize="20sp"
-                android:textColor="#ffffff"/>
+          
  
         </LinearLayout>
         <!-- Login Form Ends -->

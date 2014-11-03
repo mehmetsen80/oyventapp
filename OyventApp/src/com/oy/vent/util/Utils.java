@@ -20,12 +20,15 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
 
+import com.google.gson.Gson;
 import com.oy.vent.ImageDetailActivity;
 import com.oy.vent.MainActivity;
+import com.oy.vent.model.UserInfo;
 
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
@@ -175,5 +178,6 @@ public class Utils {
         List<ResolveInfo> list =
                 packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
         return list.size() > 0;
-    }
+    }    
+    
 }

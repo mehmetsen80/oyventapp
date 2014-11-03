@@ -60,7 +60,7 @@
                 android:layout_marginBottom="20dip"
                 android:text="@string/separator"
                 android:gravity="center"               
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textColor="#00507d"/>
           	<!-- Separator Ends -->
           	

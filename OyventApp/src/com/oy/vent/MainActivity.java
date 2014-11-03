@@ -3,7 +3,9 @@ package com.oy.vent;
 import java.util.ArrayList;
 
 import com.google.gson.Gson;
+import com.oy.vent.fragment.CommunityFragment;
 import com.oy.vent.fragment.ImageGridFragment;
+import com.oy.vent.fragment.SettingsFragment;
 import com.oy.vent.model.UserInfo;
 import com.oy.vent.slidingmenu.adapter.NavDrawerListAdapter;
 import com.oy.vent.slidingmenu.model.NavDrawerItem;
@@ -33,7 +35,7 @@ public class MainActivity extends FragmentActivity {
 
 	// Debug tag, for logging
     static final String TAG = "MainActivity.java";    
-    private static final String PREF_FILE_NAME = "OyventFileApp";
+    private static final String PREF_FILE_NAME = "OYVENTDATA";//user hard disk file name
 	
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
@@ -60,56 +62,38 @@ public class MainActivity extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_ACTION_BAR);
+		requestWindowFeature(Window.FEATURE_ACTION_BAR);//to show the action bar
 		setContentView(R.layout.activity_main);
 		
-		 // check if GPS enabled
+		// check if GPS enabled
         gpsTracker = new GPSTracker(this);
         if (!gpsTracker.canGetLocation()){
         	gpsTracker.showSettingsAlert();
         	return;
-        }
+        }		
+
+        //sliding menu items
+		mTitle = mDrawerTitle = getTitle();		
+		navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);// load slide menu items		
+		navMenuIcons = getResources()// nav drawer icons from resources
+				.obtainTypedArray(R.array.nav_drawer_icons);		
+		navDrawerItems = new ArrayList<NavDrawerItem>();// create drawer array and add nav drawer items to array		
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons.getResourceId(0, -1)));//home: all feeds		
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(1, -1)));//community feeds
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons.getResourceId(2, -1)));//settings		
+		navMenuIcons.recycle();//Recycle the typed array		
 		
-
-		mTitle = mDrawerTitle = getTitle();
-
-		// load slide menu items
-		navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
-
-		// nav drawer icons from resources
-		navMenuIcons = getResources()
-				.obtainTypedArray(R.array.nav_drawer_icons);
-
-		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-		mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
-
-		navDrawerItems = new ArrayList<NavDrawerItem>();
-		
-		// adding nav drawer items to array
-		// Home
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons.getResourceId(0, -1)));
-		// My Oys
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(1, -1)));
-		// My Events
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons.getResourceId(2, -1)));		
-		// Settings
-		//navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons.getResourceId(3, -1)));		
-		
-
-		// Recycle the typed array
-		navMenuIcons.recycle();
-
-		mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
-
-		// setting the nav drawer list adapter
+		mDrawerList = (ListView) findViewById(R.id.list_slidermenu);//the drawer list menu
+		mDrawerList.setOnItemClickListener(new SlideMenuClickListener());//menu item click event	
 		adapter = new NavDrawerListAdapter(getApplicationContext(),
-				navDrawerItems);
-		mDrawerList.setAdapter(adapter);
+				navDrawerItems);//create the adapter along with menu items
+		mDrawerList.setAdapter(adapter);//setting the nav drawer list adapter
 
 		// enabling action bar app icon and behaving it as toggle button
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		//getActionBar().setHomeButtonEnabled(true);
 
+		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);//drawer layout
 		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
 				R.drawable.ic_drawer, //nav menu toggle icon
 				R.string.app_name, // nav drawer open - description for accessibility
@@ -177,8 +161,7 @@ public class MainActivity extends FragmentActivity {
 	}
 	
 	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-	 
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {	 
 		Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.frame_container);
 	    fragment.onActivityResult(requestCode, resultCode, data);
 	}
@@ -192,32 +175,32 @@ public class MainActivity extends FragmentActivity {
 		return false;
     }
 	
-	 @Override
-	    public void onBackPressed() {
-	    	super.onBackPressed();    	
-	    }
+	@Override
+	public void onBackPressed() {
+	   	super.onBackPressed();    	
+	}
 		
-		@Override
-	    protected void onStart() {
-	        super.onStart();
+	@Override
+	protected void onStart() {
+	    super.onStart();
 	        
-	        userInfo = getUserInfo();
-			if(userInfo == null)
-			{
-				setResult(5);
-				finish();
-			}
+	    userInfo = getUserInfo();
+		if(userInfo == null)
+		{
+			setResult(5);
+			finish();
 		}
+	}
 
-		//read user info from hard disk
-		private UserInfo getUserInfo()
-		{		
-			SharedPreferences sharedPref = getSharedPreferences(PREF_FILE_NAME, MODE_PRIVATE);		
-			Gson gson = new Gson();
-			String json = sharedPref.getString("userInfo", "");
-			UserInfo usr = gson.fromJson(json, UserInfo.class);		
-			return usr;
-		}
+	//read user info from hard disk
+	private UserInfo getUserInfo()
+	{		
+		SharedPreferences sharedPref = getSharedPreferences(PREF_FILE_NAME, MODE_PRIVATE);		
+		Gson gson = new Gson();
+		String json = sharedPref.getString("userInfo", "");
+		UserInfo usr = gson.fromJson(json, UserInfo.class);		
+		return usr;
+	}
 		
 		
 	/* *
@@ -241,13 +224,13 @@ public class MainActivity extends FragmentActivity {
 		
 		switch (position) {	
 		case 0:
-			fragment =  new ImageGridFragment();
+			fragment =  new ImageGridFragment();//home-all local photo feeds
 			break;
 		case 1:
-			//fragment = new MyEventsFragment();
+			fragment = new CommunityFragment();//only community feeds
 			break;
 		case 2:
-			//fragment = new SettingsFragment();
+			fragment = new SettingsFragment();//settings screen
 			break;
 
 		default:

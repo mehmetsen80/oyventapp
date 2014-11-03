@@ -65,7 +65,7 @@ public class ImageDetailActivity extends FragmentActivity implements OnClickList
             Utils.enableStrictMode();
         }
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.image_detail_pager);
+        setContentView(R.layout.fragment_imagedetail_pager);
 
         // Fetch screen height and width, to use as our max size when loading images as this
         // activity runs full screen
